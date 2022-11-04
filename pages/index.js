@@ -197,10 +197,10 @@ export default function Home() {
                         component and see the annotated code.
                     </p>
                     <p>
-                        As you'll see if the code, I advise checking that the
-                        viewerRef.current isn't null with all the functions to
-                        avoid unnecessary errors when the viewer isn't full
-                        initialised yet
+                        I haven't commented the code for this component, it's
+                        fairly self explanatory. To better understand why
+                        certain parameters are being passed into each function,
+                        see the source code linked above
                     </p>
                 </div>
                 <div className="flex flex-col justify-center items-center gap-8">

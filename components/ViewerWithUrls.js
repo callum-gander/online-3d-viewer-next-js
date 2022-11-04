@@ -6,12 +6,9 @@ const ViewerWithUrls = ({ url, loadModel }) => {
     const viewerRef = useRef(null);
 
     useEffect(() => {
-        console.log(url);
-        console.log(parentDiv);
         if (url && loadModel) {
             OV.SetExternalLibLocation("libs");
             OV.Init3DViewerElements();
-            // initialize the viewer with the parent element and some parameters
             if (viewerRef.current === null) {
                 let viewer = new OV.EmbeddedViewer(parentDiv.current, {
                     camera: new OV.Camera(
@@ -38,16 +35,18 @@ const ViewerWithUrls = ({ url, loadModel }) => {
                         console.log(viewerRef.current.GetViewer());
                     },
                 });
-                // ! This feels stupid but unfortunately, this resizing event can persist after clean up and lead to an error, one way to avoid this happening is to just overwrite the method so that it doesn't call this.viewer
                 viewer.Resize = () => {
                     console.log("I'm not resizing");
                 };
+
+                // To load a file into the viewer using the url, we first pass a file name, OV.FileSource.Url and then the url of the model to the OV.InputFile constructor, put the newly created object in an array and save it as inputFiles
                 let inputFiles = [
                     new OV.InputFile("test.stl", OV.FileSource.Url, url),
                 ];
 
                 viewerRef.current = viewer;
 
+                // Then we just pass inputFiles into the below method and viola
                 viewer.LoadModelFromInputFiles(inputFiles);
             }
         }
